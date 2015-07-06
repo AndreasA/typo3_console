@@ -96,10 +96,6 @@ class ConsoleBootstrap extends Bootstrap {
 	 * @throws \TYPO3\CMS\Core\Error\Exception
 	 */
 	public function run($classLoader = NULL) {
-		// @deprecated in 6.2, will be removed in 7.0 (condition will be removed)
-		if ($classLoader) {
-			$this->initializeClassLoader($classLoader);
-		}
 		$this->baseSetup();
 		$this->requireBaseClasses();
 		$this->defineTypo3RequestTypes();
@@ -108,11 +104,6 @@ class ConsoleBootstrap extends Bootstrap {
 		$this->runLevel = new RunLevel();
 		$this->setEarlyInstance('Helhum\Typo3Console\Core\Booting\RunLevel', $this->runLevel);
 		new ExceptionHandler();
-
-		// @deprecated in 6.2, will be removed in 7.0
-		if (!$classLoader) {
-			$this->initializeClassLoader(NULL);
-		}
 		$this->initializeCommandManager();
 		$this->initializePackageManagement();
 
